@@ -7,6 +7,9 @@ require 'sinatra/reloader'
 get '/' do
   guess = params["guess"].to_i
   message = check_guess(guess)
+  if params["cheat"] == "true"
+    message = "#{message}\n (The secret number is #{@@secret_number}, cheater!)"
+  end
   color = set_color(message)
   erb :index, :locals => {:number => @@secret_number, :guess => guess, :message => message, :color => color}
 end
